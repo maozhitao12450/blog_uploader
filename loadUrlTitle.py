@@ -4,7 +4,8 @@ import json
 import os
 import re
 
-url_prefix = os.getenv('UEESHOP_URL')
+from config import Config
+config = Config()
 
 def load_url_title(url):
     print(f"开始获取{url}的标题,描述和相关图片信息")
@@ -14,7 +15,7 @@ def load_url_title(url):
     if os.path.exists(url_file):
         return 
 
-    response = requests.get(url_prefix+url)
+    response = requests.get(config.UEESHOP_URL + url)
     if response.status_code == 200:
         # 根据html中的 meta  og:title 获取标题
         # 根据html中的 meta  og:description 获取描述

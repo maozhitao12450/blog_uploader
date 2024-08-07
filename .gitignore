@@ -2,3 +2,4 @@ urls.txt
 /tmp
 /output
 __pycache__/
+config.json

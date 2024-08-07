@@ -9,7 +9,10 @@ import datetime
 import os
 import re
 import json
-ueeshopUrl = os.getenv('UEESHOP_URL')
+
+from config import Config
+config = Config()
+
 os.makedirs("output", exist_ok=True)
 urls = None
 with open('urls.txt', 'r') as f:
@@ -140,12 +143,6 @@ def load_json_str_from_str(str_message:str):
     else:
         return None
 
-key = os.getenv("OPENAI_API_KEY")
-base_url = os.getenv("OPENAI_API_BASE")
-base_mode = os.getenv("OPENAI_API_MODEL")
-
-model = "gemma2:latest"
-
 def create_blog(i):
     prompt = get_blog_prompts()
     urldescribe = prompt.get("urldescribe")
@@ -170,8 +167,8 @@ def create_blog(i):
         # client = OpenAI(base_url= "http://localhost:11434/v1" ,api_key= "ollama")
         # temp_model = model
         # 使用chatgpt生成
-        client = OpenAI(base_url= base_url ,api_key= key)
-        temp_model = base_mode
+        client = OpenAI(base_url= config.BLOG_GENERATE_API_BASE ,api_key= config.BLOG_GENERATE_API_KEY)
+        temp_model = config.BLOG_GENERATE_API_MODEL
         print("---------------------------------------------------------------------")
         # qwen2:7b 效果还不错
         # mistral:latest X
@@ -247,7 +244,7 @@ def create_blog(i):
                                     sign = False
                                     print("url异常")
                                     break
-                                if not requests.get(f"{ueeshopUrl}/{url}").ok:
+                                if not requests.get(f"{config.UEESHOP_URL}/{url}").ok:
                                     response_text = response_text.replace(url, random.choice(urls_bak))
                             if not sign:
                                 break
@@ -274,8 +271,8 @@ def create_blog(i):
     
     response_json = ""
     while True:
-        client = OpenAI(base_url= "http://localhost:11434/v1" ,api_key= "ollama")
-        stream = get_blog_SEO_info(client, model, response_text)
+        client = OpenAI(base_url= config.SEO_GENERATE_API_BASE ,api_key= config.SEO_GENERATE_API_KEY)
+        stream = get_blog_SEO_info(client, config.SEO_GENERATE_API_MODEL, response_text)
         seo_info = ""
         sign = True
         try:
@@ -311,6 +308,9 @@ def create_blog(i):
 if __name__ == '__main__':
     # python blog.py 3
     import sys
-    num = int(sys.argv[1])
+    if len(sys.argv) > 1:
+        num = int(sys.argv[1])
+    else:
+        num = 1
     for i in range(num):
         create_blog(i)

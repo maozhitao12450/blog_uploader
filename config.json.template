@@ -1,0 +1,16 @@
+{
+    "UEESHOP_URL": "https://xxxxxxx.myueeshop.com/",
+    "UEESHOP_LOGIN_USER": "用户名",
+    "UEESHOP_LOGIN_PASSWORD": "密码",
+    
+    "BLOG_GENERATE_API_KEY": "openai的api key",
+    "BLOG_GENERATE_API_BASE": "openai的base_url",
+    "BLOG_GENERATE_API_MODEL": "openai的模型",
+
+    "SEO_GENERATE_API_KEY": "ollama",
+    "SEO_GENERATE_API_BASE": "http://localhost:11434/v1",
+    "SEO_GENERATE_API_MODEL": "gemma2:latest",
+
+    "LOCAL_API_BASE": "本地api的base_url",
+    "LOCAL_API_MODEL": "本地api的模型",
+}

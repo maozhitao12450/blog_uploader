@@ -13,8 +13,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.ui import Select
 
+from config import Config
+config = Config()
+
 import win32clipboard
-ueeshopUrl = os.getenv('UEESHOP_URL')
 def install_monkey(driver:webdriver.Chrome = None):
     # chrome_options.add_extension(r'tampermonkey_stable.crx')
     # 加载Tampermonkey脚本
@@ -93,10 +95,9 @@ def upload_file():
     driver = webdriver.Chrome(options=chrome_options)
     # 输出当前地址栏
     print(driver.current_url)
-    ueeshopUrl = os.getenv("UEESHOP_URL")
     # 打开网页
-    # driver.get(f"{ueeshopUrl}/manage/plugins/blog/blog-v2-edit?id=0&start_upload_auto=true")
-    driver.get(f"{ueeshopUrl}/manage/plugins/blog/blog-v2-edit?id=0")
+    # driver.get(f"{config.UEESHOP_URL}/manage/plugins/blog/blog-v2-edit?id=0&start_upload_auto=true")
+    driver.get(f"{config.UEESHOP_URL}/manage/plugins/blog/blog-v2-edit?id=0")
 
     # 等待页面加载完成
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'input.submit')))
@@ -107,8 +108,8 @@ def upload_file():
         username = driver.find_element(By.CSS_SELECTOR, 'input[name="MobilePhone"]')
         password = driver.find_element(By.CSS_SELECTOR, 'input[name="Password"]')
         
-        username.send_keys(os.getenv("FNM_LOGIN_USER"))
-        password.send_keys(os.getenv("FNM_LOGIN_USER"))
+        username.send_keys(config.UEESHOP_LOGIN_USER)
+        password.send_keys(config.UEESHOP_LOGIN_PASSWORD)
 
         # 点击登录按钮
         login_button = driver.find_element(By.CSS_SELECTOR, 'input.submit')
@@ -148,7 +149,7 @@ def upload_file():
             # 删除文件
             os.remove(os.path.join("output", filename))
             # 重新打开编辑页面
-            driver.get(f"{ueeshopUrl}/manage/plugins/blog/blog-v2-edit?id=0")
+            driver.get(f"{config.UEESHOP_URL}/manage/plugins/blog/blog-v2-edit?id=0")
     print("所有文件上传完成")
 if __name__ == '__main__':
     # 设置Chrome浏览器的选项
