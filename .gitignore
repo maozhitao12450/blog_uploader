@@ -1,3 +1,4 @@
 urls.txt
 /tmp
 /output
+__pycache__/
