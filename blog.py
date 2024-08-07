@@ -13,6 +13,9 @@ config = Config()
 
 os.makedirs("output", exist_ok=True)
 urls = None
+if not os.path.exists('urls.txt'):
+    raise Exception("urls.txt not found, please init first")
+    
 with open('urls.txt', 'r') as f:
     urls = f.readlines()
 
