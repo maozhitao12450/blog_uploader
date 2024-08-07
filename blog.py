@@ -1,8 +1,6 @@
 
 import re
 import requests
-# from WindowProxyInfo import ProxyServer
-# ProxyServer().setEnv()
 
 # 读取images.txt
 import datetime

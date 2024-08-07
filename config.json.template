@@ -11,6 +11,4 @@
     "SEO_GENERATE_API_BASE": "http://localhost:11434/v1",
     "SEO_GENERATE_API_MODEL": "gemma2:latest",
 
-    "LOCAL_API_BASE": "本地api的base_url",
-    "LOCAL_API_MODEL": "本地api的模型",
 }
