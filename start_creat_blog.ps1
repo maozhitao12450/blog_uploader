@@ -33,7 +33,9 @@ if (-not (conda env list | Select-String -Pattern $env)) {
     Write-Host "Conda environment $env created."
     # 安装依赖
     conda activate $env
+    Write-Host "Activated conda environment: $env"
     pip install -r requirements.txt
+    Write-Host "install requirements"
 } else {
     Write-Host "Conda environment $env already exists."
     # 激活环境
